@@ -1,0 +1,131 @@
+{
+  "createdAt": "2026-10-14T08:05:47.579407+00:00",
+  "baseUrl": "http://127.0.0.1:8082",
+  "checks": [
+    {
+      "name": "actual Redis adapter",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "create persisted activity",
+      "passed": true,
+      "detail": {
+        "perUserLimit": 1,
+        "stockImpl": "redis-lua",
+        "shardCount": 8,
+        "totalStock": 20,
+        "activityId": "ACT-34425E07-99BA-4401-8D06-CFC1BD1BA4CE"
+      }
+    },
+    {
+      "name": "pending claim reports HTTP 202",
+      "passed": true,
+      "detail": {
+        "code": "PROCESSING",
+        "claimNo": "CLM438d992d-e097-4c9c-bb7f-c2ec1b87fb7d",
+        "detail": "领取已受理，请查询发奖状态",
+        "userId": "restart-user"
+      }
+    },
+    {
+      "name": "failed transport has no grant yet",
+      "passed": true,
+      "detail": {
+        "status": "PROCESSING",
+        "claimNo": "CLM438d992d-e097-4c9c-bb7f-c2ec1b87fb7d",
+        "failReason": "",
+        "granted": false,
+        "userId": "restart-user",
+        "activityId": "ACT-34425E07-99BA-4401-8D06-CFC1BD1BA4CE"
+      }
+    },
+    {
+      "name": "outbox resumes after real process restart",
+      "passed": true,
+      "detail": {
+        "status": "SUCCESS",
+        "claimNo": "CLM438d992d-e097-4c9c-bb7f-c2ec1b87fb7d",
+        "failReason": "",
+        "granted": true,
+        "userId": "restart-user",
+        "activityId": "ACT-34425E07-99BA-4401-8D06-CFC1BD1BA4CE"
+      }
+    },
+    {
+      "name": "stock and committed records survive restart",
+      "passed": true,
+      "detail": {
+        "activityId": "ACT-34425E07-99BA-4401-8D06-CFC1BD1BA4CE",
+        "name": "重启与补偿验收",
+        "status": "RUNNING",
+        "initTotalStock": 20,
+        "cacheStock": 19,
+        "dbStock": 19,
+        "perUserLimit": 1,
+        "stockImpl": "redis-lua",
+        "successClaims": 1
+      }
+    },
+    {
+      "name": "same request remains idempotent after restart",
+      "passed": true,
+      "detail": {
+        "code": "SUCCESS",
+        "claimNo": "CLM438d992d-e097-4c9c-bb7f-c2ec1b87fb7d",
+        "userId": "restart-user"
+      }
+    },
+    {
+      "name": "user limit survives restart",
+      "passed": true,
+      "detail": {
+        "code": "LIMIT_EXCEEDED",
+        "userId": "restart-user"
+      }
+    },
+    {
+      "name": "identity conflict is HTTP 409",
+      "passed": true,
+      "detail": {
+        "code": "IDEMPOTENCY_CONFLICT",
+        "detail": "幂等键已绑定其他活动或用户",
+        "userId": "other-user"
+      }
+    },
+    {
+      "name": "cold memory cache rebuilds persisted stock",
+      "passed": true,
+      "detail": {
+        "activityId": "ACT-34425E07-99BA-4401-8D06-CFC1BD1BA4CE",
+        "name": "重启与补偿验收",
+        "status": "RUNNING",
+        "initTotalStock": 20,
+        "cacheStock": 19,
+        "dbStock": 19,
+        "perUserLimit": 1,
+        "stockImpl": "in-memory",
+        "successClaims": 1
+      }
+    },
+    {
+      "name": "cold memory cache rebuilds user limits",
+      "passed": true,
+      "detail": {
+        "code": "LIMIT_EXCEEDED",
+        "userId": "restart-user"
+      }
+    },
+    {
+      "name": "final deployment uses Redis",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all activities reconcile",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "passed": true
+}

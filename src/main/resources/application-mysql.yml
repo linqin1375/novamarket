@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+# ============================================================
+# profile: mysql —— 使用真实 MySQL 8
+# 启动：mvnw spring-boot:run -Dspring-boot.run.profiles=mysql
+# 前置：docker compose up -d mysql
+#
+# schema.sql 在两个库下的差异说明：
+#   1. 建表语句按 MySQL 兼容写法编写（AUTO_INCREMENT / TIMESTAMP / UNIQUE KEY）；
+#   2. H2 以 MODE=MySQL 运行同一份 schema.sql，所以两边只有连接串不同；
+#   3. 唯一索引（request_id / claim_no）是幂等的最终兜底，必须在**建表时**建立 ——
+#      只在应用层判重挡不住"两个并发请求同时查不到"的情况。
+# ============================================================
+spring:
+  application:
+    name: novamarket
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/novamarket?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: nova
+    password: ${NOVAMARKET_MYSQL_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 50
+      minimum-idle: 10
+      connection-timeout: 10000

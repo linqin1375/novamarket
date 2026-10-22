@@ -1,0 +1,55 @@
+{
+  "createdAt": "2026-10-14T07:57:42.505Z",
+  "type": "fixed-count-local-benchmark",
+  "config": {
+    "url": "http://127.0.0.1:8082",
+    "requests": 1000,
+    "concurrency": 32,
+    "stock": 100,
+    "out": "reports/local-redis-benchmark.json"
+  },
+  "environment": {
+    "node": "v24.19.0",
+    "os": "win32 10.0.26100",
+    "cpus": 28,
+    "stockImpl": "redis-lua",
+    "messageImpl": "in-process-bus",
+    "sameMachineClientAndServer": true
+  },
+  "requests": 1000,
+  "accepted": 100,
+  "grantedAfterDrain": 100,
+  "codes": {
+    "PROCESSING": 100,
+    "SOLD_OUT": 400,
+    "RATE_LIMITED": 500
+  },
+  "httpCodes": {
+    "200": 400,
+    "202": 100,
+    "429": 500
+  },
+  "systemErrors": {},
+  "elapsedSeconds": 0.5965148,
+  "requestRps": 1676.4043406802311,
+  "acceptedRps": 167.64043406802313,
+  "latencyMs": {
+    "p50": 13.992600000000039,
+    "p95": 53.9563,
+    "p99": 102.79750000000001,
+    "max": 177.5201
+  },
+  "accounting": {
+    "activityId": "ACT-E916D1BC-6D99-4805-B105-0E74D1E05092",
+    "name": "实机验证 2026-10-14T07:57:41.837Z",
+    "status": "RUNNING",
+    "initTotalStock": 100,
+    "cacheStock": 0,
+    "dbStock": 0,
+    "perUserLimit": 1,
+    "stockImpl": "redis-lua",
+    "successClaims": 100,
+    "valid": true
+  },
+  "note": "Full run only; no ramp subtraction. Accepted is not granted. Sold-out requests count toward requestRps, not business completion. Not production capacity."
+}

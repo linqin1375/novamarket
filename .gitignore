@@ -1,0 +1,24 @@
+# Local credentials, data, runtimes and build products
+.local/
+.tools/
+data/
+target/
+logs/
+*.log
+.env
+.env.*
+!.env.example
+*.dpapi
+*.mv.db
+*.trace.db
+*.rdb
+*.aof
+*.jks
+*.p12
+*.pem
+*.key
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

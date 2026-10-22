@@ -1,0 +1,18 @@
+services:
+  redis:
+    image: redis:7-alpine
+    ports: ["127.0.0.1:6379:6379"]
+    command: redis-server --appendonly no --save ""
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  mysql:
+    image: mysql:8.0
+    ports: ["127.0.0.1:3306:3306"]
+    environment:
+      MYSQL_ROOT_PASSWORD: ${NOVAMARKET_MYSQL_ROOT_PASSWORD:-}
+      MYSQL_DATABASE: novamarket
+      MYSQL_USER: nova
+      MYSQL_PASSWORD: ${NOVAMARKET_MYSQL_PASSWORD:-}

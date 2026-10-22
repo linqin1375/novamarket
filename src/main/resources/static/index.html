@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NovaMarket · 营销权益领取</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<header><div class="brand"><span class="logo">N</span><div><strong>NovaMarket</strong><small>营销权益领取平台</small></div></div><span class="tag">本机演示 · 模拟权益</span><button id="refresh" class="quiet">刷新数据</button></header>
+<main>
+<div class="intro"><div><p class="eyebrow">活动工作台</p><h1>一次领取，账目清楚。</h1><p>创建活动，体验限领与重试，查看库存和发奖状态。</p></div><div class="online"><i></i><span id="connection">正在连接服务</span></div></div>
+<section class="stats" aria-label="活动指标"><article><span>当前活动库存</span><strong id="available">—</strong><small>数据库剩余数量</small></article><article><span>已发放权益</span><strong id="granted">—</strong><small>当前活动成功领取</small></article><article><span>库存差额</span><strong id="difference">—</strong><small>缓存库存 − 数据库库存</small></article><article><span>待处理消息</span><strong id="pending">—</strong><small>等待发奖或补偿重投</small></article></section>
+<div class="workspace">
+<aside class="panel"><div class="section-title"><h2>活动列表</h2><span id="activity-count">0</span></div><div id="activities" class="activity-list"><p class="empty">还没有活动。先创建一个。</p></div>
+<details id="create-details" open><summary>创建新活动</summary><form id="create"><label>活动名称<input name="name" value="秋日体验活动" maxlength="128" required></label><div class="two"><label>总库存<input name="totalStock" type="number" min="1" max="1000000" value="100" required></label><label>每人限领<input name="perUserLimit" type="number" min="1" max="1000" value="2" required></label></div><label>有效时长（秒）<input name="ttlSeconds" type="number" min="1" max="604800" value="86400" required></label><button type="submit">创建活动</button></form></details></aside>
+<section class="panel claim-panel"><div class="section-title"><div><h2 id="selected-name">选择一个活动</h2><p id="selected-detail" class="muted">从左侧选择，或创建一个新活动。</p></div><span class="tag" id="activity-status">待选择</span></div>
+<form id="claim"><label>演示用户 ID<input id="user-id" value="demo-user" pattern="[A-Za-z0-9_.@-]{1,64}" maxlength="64" required><small>同一用户受活动限领约束。</small></label><div class="actions"><button id="claim-button" disabled type="submit">领取一份权益</button><button id="retry" type="button" class="secondary" disabled>重试上次请求</button></div></form>
+<div class="result" id="claim-result" aria-live="polite"><span class="muted">领取结果将显示在这里。</span></div>
+<div class="flow"><span>资格与库存检查</span><b>→</b><span>领取单落库</span><b>→</b><span>异步发奖</span><b>→</b><span>消息确认</span></div>
+<div class="section-title demo-title"><div><h2>验证场景</h2><p class="muted">操作会生成演示领取记录，可在刷新或重启后继续查看。</p></div></div>
+<div class="scenario"><div><h3>并发争抢</h3><p>自动创建 100 件库存、每人限领 1 件的活动，以最多 16 个在途请求发起 200 次领取。</p></div><button class="secondary" id="concurrency">运行场景</button></div>
+<div class="scenario"><div><h3>消息失败与补偿</h3><p>让下一条发奖消息发送失败，观察“处理中”到“已发放”的恢复过程。</p></div><button class="secondary" id="fault">设置一次失败</button></div>
+<div class="actions bottom"><button id="compensate" class="quiet">立即运行补偿</button><span class="muted" id="scenario-result" aria-live="polite"></span></div>
+</section></div>
+<footer><span>演示用户由你输入；本页面不提供真实用户认证或支付。</span><span id="runtime"></span></footer>
+</main><div id="toast" role="status"></div><script src="/app.js"></script>
+</body></html>

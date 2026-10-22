@@ -1,0 +1,43 @@
+{
+  "createdAt": "2026-10-14T08:13:48.793391+00:00",
+  "tests": {
+    "tests": 30,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "suites": [
+    {
+      "name": "io.github.tangbailin.novamarket.ApiContractTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "io.github.tangbailin.novamarket.ClaimFlowTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "io.github.tangbailin.novamarket.CorrectnessRegressionTest",
+      "tests": "12",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "io.github.tangbailin.novamarket.RedisStockIntegrationTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "httpAndRestartChecks": 13,
+  "httpAndRestartPassed": true,
+  "deployedJarSha256": "d993ccdba4572e67efd259c4d8de350aff72302dbb4c1ef8dc9789ece7bb4b35",
+  "scope": "Windows single instance; actual Redis Lua + H2 file DB; in-process message bus; MySQL and RocketMQ not runtime-validated."
+}

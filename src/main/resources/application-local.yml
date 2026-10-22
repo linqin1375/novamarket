@@ -1,0 +1,14 @@
+server:
+  port: 8082
+  address: 127.0.0.1
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/novamarket;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE;WRITE_DELAY=0
+novamarket:
+  stock: memory
+  compensate:
+    wal-settle-delay-seconds: 10
+    message-retry-delay-seconds: 2
+    reconcile-interval-seconds: 30
+  rate-limit:
+    permits-per-second: 500

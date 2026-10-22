@@ -1,0 +1,52 @@
+server:
+  port: 8080
+  address: 127.0.0.1
+
+spring:
+  application:
+    name: novamarket
+  # 默认 H2：零安装即可运行。生产用 profile=mysql
+  datasource:
+    url: jdbc:h2:mem:novamarket;DB_CLOSE_DELAY=-1;MODE=MySQL
+    username: sa
+    password: ""
+    hikari:
+      maximum-pool-size: 20
+  sql:
+    init:
+      mode: never
+  jackson:
+    default-property-inclusion: non_null
+
+novamarket:
+  # stock: auto | memory | redis
+  #   auto   —— 能连上 Redis 就用 Redis，连不上退回内存（默认，保证开箱即用）
+  #   memory —— 强制内存实现，用于正确性测试
+  #   redis  —— 强制 Redis 实现，连不上直接启动失败（避免"以为在测 Redis 其实在测内存"）
+  stock: auto
+  shard-count: 8
+  per-user-limit: 2
+  idem-ttl-seconds: 3600
+  wal-ttl-seconds: 600
+  # 补偿任务参数
+  compensate:
+    enabled: true
+    wal-settle-delay-seconds: 30
+    message-retry-delay-seconds: 60
+    max-message-retry: 5
+    reconcile-interval-seconds: 60
+  # 入口限流：令牌桶，按活动维度。
+  #
+  # 这里刻意把默认阈值放得很高（20 万/秒），原因是压测实践中发现的一个真问题：
+  # 原先设成 2 万/秒时，200 并发下约 44% 的请求被 RATE_LIMITED 直接拒绝 ——
+  # 此时测到的是**限流器的阈值**，而不是服务本身的容量，压测结论完全失真。
+  # 限流的作用是"保护自己不被上游打垮"，不是给容量测试设上限；
+  # 真实环境请按目标 QPS 与机器规格重新标定这个值。
+  rate-limit:
+    enabled: true
+    permits-per-second: 200000
+
+logging:
+  level:
+    root: INFO
+    io.github.tangbailin.novamarket: INFO

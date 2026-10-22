@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-10-22T03:27:15.247110+00:00",
+  "project": "novamarket",
+  "tests": {
+    "tests": 30,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "modelApiCalls": 0,
+  "conditions": "JDK 17; dedicated real Redis on loopback; H2; Windows single process",
+  "mavenGoal": "verify",
+  "suites": [
+    {
+      "name": "io.github.tangbailin.novamarket.ApiContractTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "io.github.tangbailin.novamarket.ClaimFlowTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "io.github.tangbailin.novamarket.CorrectnessRegressionTest",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "name": "io.github.tangbailin.novamarket.RedisStockIntegrationTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ]
+}

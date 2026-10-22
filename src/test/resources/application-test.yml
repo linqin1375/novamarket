@@ -1,0 +1,26 @@
+# 测试配置
+# 默认用内存库存实现，测试不依赖外部 Redis —— 外部依赖会让测试随机变红，
+# 而"随机的红"最容易被忽略，比没有测试更糟。
+novamarket:
+  scheduling:
+    enabled: false
+  stock: memory
+  shard-count: 8
+  per-user-limit: 2
+  compensate:
+    enabled: true
+    # 测试里把补偿延迟调小，便于在单个用例内验证
+    wal-settle-delay-seconds: 1
+    message-retry-delay-seconds: 1
+    max-message-retry: 5
+    reconcile-interval-seconds: 3600
+  rate-limit:
+    enabled: false
+
+spring:
+  datasource:
+    hikari:
+      # 并发测试会同时打 64 个线程，连接池太小会让请求在池上排队而不是在业务上竞争，
+      # 反而掩盖真实的并发行为
+      maximum-pool-size: 32
+      connection-timeout: 30000

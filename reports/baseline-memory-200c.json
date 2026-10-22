@@ -1,0 +1,137 @@
+{
+  "tool": "novamarket-loadtest",
+  "toolVersion": "1.0.0",
+  "generatedAt": "2026-10-13T13:37:48.034Z",
+  "environment": {
+    "machine": "LAPTOP-L46C2MJO",
+    "cpuModel": "Intel(R) Core(TM) i7-14700HX",
+    "cpuCount": 28,
+    "totalMemGB": 31.8,
+    "nodeVersion": "v24.21.0",
+    "platform": "win32",
+    "arch": "x64",
+    "osRelease": "Windows_NT 10.0.26100",
+    "clientPeakRssMB": 1600.5
+  },
+  "config": {
+    "url": "http://127.0.0.1:8080",
+    "activityId": "ACT-57F1F051",
+    "concurrency": 200,
+    "durationSec": 15,
+    "rampUpSec": 3,
+    "mode": "spread",
+    "userPool": 20000,
+    "repeatRequestId": false,
+    "timeoutMs": 10000,
+    "expectCode": "SUCCESS",
+    "percentileScope": "all",
+    "workers": 64,
+    "extraHeaderNames": []
+  },
+  "result": {
+    "total": 375876,
+    "success": 50000,
+    "failed": 325876,
+    "rps": 31273.48,
+    "requestRps": 31273.48,
+    "claimRps": 4160.08,
+    "p50": 6,
+    "p95": 21,
+    "p99": 62,
+    "max": 761,
+    "elapsedSec": 15.019
+  },
+  "errorBreakdown": {
+    "SOLD_OUT": 325876,
+    "LIMIT_EXCEEDED": 0,
+    "HTTP_5XX": 0,
+    "TIMEOUT": 0
+  },
+  "notes": "本数据来自单机压测，客户端与服务端在同一台机器上，客户端自身也会争抢 CPU；只能用于优化前后横向比较，不能作为生产容量结论。",
+  "extra": {
+    "rate": {
+      "successRatePct": 13.3,
+      "failureRatePct": 86.7,
+      "businessFailureRatePct": 86.7,
+      "systemFailureRatePct": 0
+    },
+    "latency": {
+      "scope": "all",
+      "scopeRequested": "all",
+      "scopeFallback": false,
+      "sampleCount": 375876,
+      "bucketMs": 1,
+      "method": "nearest-rank",
+      "min": 0,
+      "p50": 6,
+      "p95": 21,
+      "p99": 62,
+      "max": 761
+    },
+    "businessFailure": {
+      "count": 325876,
+      "byCode": {
+        "SOLD_OUT": 325876,
+        "LIMIT_EXCEEDED": 0
+      },
+      "meaning": "服务按业务规则正常拒绝（库存不足、超出限领等），不代表服务不健康"
+    },
+    "systemFailure": {
+      "count": 0,
+      "byCode": {
+        "HTTP_5XX": 0,
+        "TIMEOUT": 0
+      },
+      "meaning": "HTTP 5xx / 超时 / 网络错误等真正的系统异常，必须与业务失败分开观测"
+    },
+    "timeline": [
+      {
+        "fromSec": 0.5,
+        "toSec": 5.6,
+        "completed": 117424,
+        "success": 50000,
+        "rps": 23142.29,
+        "inFlight": 256,
+        "inRampUp": false
+      },
+      {
+        "fromSec": 5.6,
+        "toSec": 10.8,
+        "completed": 151723,
+        "success": 0,
+        "rps": 29171.89,
+        "inFlight": 256,
+        "inRampUp": false
+      },
+      {
+        "fromSec": 10.8,
+        "toSec": 15.3,
+        "completed": 106729,
+        "success": 0,
+        "rps": 23914.18,
+        "inFlight": 0,
+        "inRampUp": false
+      }
+    ],
+    "methodology": {
+      "rpsNumerator": "成功请求数（HTTP 2xx 且业务码为成功码；DUPLICATE 也算成功）",
+      "rpsDenominator": "实际压测时长 − 爬坡时长（秒）",
+      "rampUpExcludedFromRps": true,
+      "rampUpIncludedInLatency": true,
+      "rampUpExcludedReason": "爬坡期并发还没到目标值，计入分母会系统性低估稳态吞吐",
+      "latencySamplePolicy": "全部请求的端到端耗时，含失败与超时请求（--percentile-scope success 可只看成功）",
+      "percentileMethod": "按 1ms 分桶计数，对桶键排序后 nearest-rank 取分位；不保存全部原始样本",
+      "successRateDenominator": "全部请求（含爬坡期）",
+      "timeoutPolicy": "超过 --timeout 未拿到完整响应即记 TIMEOUT，计入系统失败",
+      "duplicateRequestIdMode": "关闭：每个请求生成新 uuid",
+      "clientModel": "64 个 worker 线程，每线程 1 个虚拟用户，线程内用令牌控制同时在飞请求数",
+      "userIdPolicy": "分散模式：虚拟用户从 20000 个 userId 的池中取一个"
+    },
+    "raw": {
+      "hotUserId": null,
+      "workers": 64,
+      "measuredSec": 12.019,
+      "peakIntervalRps": 29171.89
+    }
+  }
+}

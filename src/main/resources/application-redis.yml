@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+# ============================================================
+# profile: redis —— 使用真实 Redis（Lua 原子扣减）
+# 启动：mvnw spring-boot:run -Dspring-boot.run.profiles=redis
+# 前置：docker compose up -d redis
+#
+# 单独成文件（而不是用 --- 多文档）的原因：多文档 YAML 在 Spring Boot 里
+# 需要 spring.config.activate.on-profile，容易和主配置的键合并出意外结果。
+# 一个 profile 一个文件，是更不容易出错的做法。
+# ============================================================
+spring:
+  application:
+    name: novamarket
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 64
+          max-idle: 16
+
+novamarket:
+  # 强制模式：连不上 Redis 就直接启动失败。
+  # 这样能杜绝"以为在压 Redis，其实跑的是内存实现"这种最坏情况——数据全错还看不出来。
+  stock: redis
